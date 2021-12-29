@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>以下是Jenkins自动发送的邮件，请勿回复！</h1>
+<br>
+<hr>
+<br>
+项目描述：${JOB_DESCRIPTION}<br>
+<br>
+<hr>
+项目名称：$PROJECT_NAME<br>
+构建编号：$BUILD_NUMBER<br>
+构建状态：$BUILD_STATUS<br>
+触发原因：${CAUSE}<br>
+构建地址：<a href="${BUILD_URL}">${BUILD_URL}</a><br>
+构建日志地址：<a href="${BUILD_URL}console">${BUILD_URL}console</a><br>
+<hr>
+${JELLY_SCRIPT}
+</body>
+</html>
