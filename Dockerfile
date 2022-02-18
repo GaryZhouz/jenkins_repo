@@ -8,4 +8,4 @@ EXPOSE 8090
 
 WORKDIR /opt/jenkins
 
-ENTRYPOINT ["java", "-jar /opt/jenkins/jenkins_repo-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/opt/jenkins/jenkins_repo-0.0.1-SNAPSHOT.jar"]
