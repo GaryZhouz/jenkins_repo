@@ -1,11 +1,10 @@
 pipeline {
-        agent any
-//     agent {
-//         docker {
-//             image 'maven:3-alpine'
-//             args '-v /root/.m2:/root/.m2'
-//         }
-//     }
+     agent {
+        docker {
+            image 'maven:3-alpine'
+            args '-u root -v /var/jenkins_home:/var/jenkins_home'
+        }
+    }
     stages {
 
 //         stage('checkout code') {
@@ -16,12 +15,6 @@ pipeline {
 //         }
 
         stage('Build') {
-            agent {
-                docker {
-                    image 'maven:3-alpine'
-                    args '-u root -v /var/jenkins_home:/var/jenkins_home'
-                }
-            }
             steps {
                 echo 'start package'
                 sh '''#!/bin/ash
