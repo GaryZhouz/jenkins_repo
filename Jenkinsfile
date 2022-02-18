@@ -29,7 +29,9 @@ pipeline {
         }
 
         stage('Run app') {
-            sh 'docker run -d -p 8080:8080 app:1.0'
+            steps {
+                sh 'docker run -d -p 8080:8080 app:1.0'
+            }
         }
     }
 }
