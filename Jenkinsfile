@@ -28,13 +28,13 @@ pipeline {
             steps {
                 echo 'docker build image'
                 sh 'ls'
-                sh 'docker build -t app:1.0 .'
+                sh 'docker build -t app:${BUILD_NUMBER} .'
             }
         }
 
         stage('Run app') {
             steps {
-                sh 'docker run -d -p 8090:8090 app:1.0'
+                sh 'docker run -d -p 8090:8090 app:${BUILD_NUMBER}'
             }
         }
     }
