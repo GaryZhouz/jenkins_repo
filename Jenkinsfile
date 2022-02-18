@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'maven:3-jdk-8'
-            args '-v /root/.m2:/root/.m2'
+            args '-u root -v /root/.m2:/root/.m2'
         }
     }
     stages {
@@ -17,7 +17,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
-                echo 'package code success'
+                echo 'maven package jar success'
             }
         }
     }
