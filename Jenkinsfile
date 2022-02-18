@@ -1,11 +1,6 @@
 pipeline {
-     agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2 --privileged'
-        }
-    }
     stages {
+        agent any
 
         stage('checkout code') {
             steps {
@@ -15,6 +10,12 @@ pipeline {
         }
 
         stage('package') {
+             agent {
+                docker {
+                    image 'maven:3-alpine'
+                    args '-v /root/.m2:/root/.m2 --privileged'
+                }
+            }
             steps {
                 echo 'start package'
                 sh 'mvn -B -DskipTests clean package'
