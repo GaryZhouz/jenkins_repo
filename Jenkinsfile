@@ -14,13 +14,15 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('package') {
             steps {
                 echo 'start package'
                 sh 'mvn -B -DskipTests clean package'
                 echo 'maven package jar success'
             }
+        }
 
+        stage('build image') {
             steps {
                 echo 'docker build image'
                 sh 'ls'
