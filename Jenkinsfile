@@ -19,7 +19,7 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3-alpine'
-                    args '-u root'
+                    args '-u root -v /var/jenkins_home:/var/jenkins_home'
                 }
             }
             steps {
