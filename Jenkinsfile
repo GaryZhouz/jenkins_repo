@@ -20,6 +20,16 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
                 echo 'maven package jar success'
             }
+
+            steps {
+                echo 'docker build image'
+                sh 'ls'
+                sh 'docker build -t app:1.0 .'
+            }
+        }
+
+        stage('Run app') {
+            sh 'docker run -d -p 8080:8080 app:1.0'
         }
     }
 }
