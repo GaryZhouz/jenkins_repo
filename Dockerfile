@@ -4,7 +4,7 @@ RUN mkdir -p /opt/jenkins/
 
 COPY ./target/jenkins_repo-0.0.1-SNAPSHOT.jar /opt/jenkins/
 
-EXPOSE 8080
+EXPOSE 8090
 
 WORKDIR /opt/jenkins
 
