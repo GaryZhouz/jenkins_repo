@@ -2,7 +2,7 @@ pipeline {
      agent {
         docker {
             image 'maven:3-alpine'
-            args '-u root --privileged -v /wzz/volume_data/jenkins:/var/jenkins_home'
+            args '-u root --privileged'
         }
     }
     stages {
