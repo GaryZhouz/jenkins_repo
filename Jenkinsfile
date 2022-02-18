@@ -19,8 +19,8 @@ pipeline {
                 echo 'start package'
                 sh '''#!/bin/ash
                 ls'''
-                sh 'mvn -B -DskipTests clean package'
-                echo 'maven package jar success'
+//                 sh 'mvn -B -DskipTests clean package'
+//                 echo 'maven package jar success'
             }
         }
     }
