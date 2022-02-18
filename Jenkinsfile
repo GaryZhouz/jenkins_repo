@@ -32,7 +32,7 @@ pipeline {
             steps {
                 echo 'docker build image'
                 sh 'ls'
-                sh 'docker build -t app:${BUILD_NUMBER} .'
+                sh 'docker build --no-cache -t app:${BUILD_NUMBER} .'
             }
         }
 
