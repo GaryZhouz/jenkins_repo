@@ -25,6 +25,8 @@ pipeline {
                 echo 'start package'
                 sh 'mvn -B -DskipTests clean package'
                 echo 'maven package jar success'
+
+                sh 'rm -rf src'
             }
         }
 
