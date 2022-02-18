@@ -18,6 +18,8 @@ pipeline {
                 }
             }
             steps {
+                echo 'delete jar'
+                sh 'rm -rf ./target'
                 echo 'start package'
                 sh 'mvn -B -DskipTests clean package'
                 echo 'maven package jar success'
