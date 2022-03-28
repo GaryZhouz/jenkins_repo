@@ -26,10 +26,12 @@ pipeline {
 
         stage('delete container and images') {
             steps {
+                script {
+                    def containerIds = sh 'docker ps -a | grep $serviceName | awk \'{print $1}\''
+                    env.containerIds = containerIds
+                }
                 echo 'docker will delete run container'
-                containerId = sh 'docker ps | grep $serviceName'
-                echo '$containerId'
-                sh 'docker rm -f ${containerId}'
+                sh 'docker rm -f ${env.containerIds}'
                 echo 'docker will delete images'
                 sh 'docker rmi -f $(docker images | grep app | awk \'{print $3}\')'
             }
@@ -47,6 +49,12 @@ pipeline {
             steps {
                 sh 'docker run -d -p 8090:8090 app:${BUILD_NUMBER}'
             }
+        }
+
+        post {
+           always {
+
+           }
         }
     }
 }
