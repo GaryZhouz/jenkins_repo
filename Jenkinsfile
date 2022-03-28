@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    def serviceName = 'app'
+
+    environment {
+        serviceName = 'app'
+    }
+
     tools {
         maven 'my_mvn'
     }
@@ -21,9 +27,12 @@ pipeline {
         }
 
         stage('build image') {
+            environment {
+                imageId = '${sh(docker images | grep $serviceName | awk \'{print $3}\')}'
+            }
             steps {
-                echo 'docker remove old image'
-                sh 'docker rmi -f app:${BUILD_NUMBER-1}'
+                echo 'docker remove old image -> $imageId'
+                sh 'docker rmi -f $serviceName:${BUILD_NUMBER}'
 
                 echo 'docker build image'
                 sh 'ls'
