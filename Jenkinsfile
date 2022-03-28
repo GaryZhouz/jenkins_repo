@@ -25,9 +25,12 @@ pipeline {
         }
 
         stage('build image') {
+            environment {
+                imageId = "${sh('docker images | grep $serviceName | awk \'{print $3}\'')}"
+            }
+
             steps {
-                def imageId = sh 'docker images | grep $serviceName | awk \'{print $3}\''
-                echo 'docker remove old image -> ${imageId}'
+                echo 'docker remove old image -> $imageId'
                 sh 'docker rmi -f $serviceName:${BUILD_NUMBER}'
 
                 echo 'docker build image'
