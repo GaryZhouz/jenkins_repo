@@ -26,7 +26,7 @@ pipeline {
 
         stage('build image') {
             environment {
-                imageId = "${sh('docker images | grep $serviceName | awk \'{print $3}\'')}"
+                imageId = """${sh('docker images | grep $serviceName | awk \'{print $3}\'')}"""
             }
 
             steps {
