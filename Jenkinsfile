@@ -26,12 +26,13 @@ pipeline {
 
         stage('delete container and images') {
             steps {
-                script {
-                    def imagesId= $(docker images | grep -i $serviceName | awk '{print \$3}')
-                    echo imagesId
-                    def containerId = "${BUILD_NUMBER}" - 1
-                    echo containerId
-                }
+//                 script {
+//                     def imagesId= $(docker images | grep -i $serviceName | awk '{print \$3}')
+//                     echo imagesId
+//                     def containerId = "${BUILD_NUMBER}" - 1
+//                     echo containerId
+//                 }
+                echo "\$(docker images | grep -i dpi | awk '{print \$3}')"
                 echo 'docker will delete run container'
                 sh 'docker rm -f ${env.containerIds}'
                 echo 'docker will delete images'
