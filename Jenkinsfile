@@ -29,6 +29,7 @@ pipeline {
                 script {
                     def containerIds = sh 'docker ps -a | grep $serviceName | awk \'{print $1}\''
                     env.containerIds = containerIds
+                    echo containerIds
                 }
                 echo 'docker will delete run container'
                 sh 'docker rm -f ${env.containerIds}'
