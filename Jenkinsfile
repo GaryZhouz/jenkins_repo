@@ -25,10 +25,12 @@ pipeline {
         }
 
         stage('delete container and images') {
-            echo 'docker will delete run container'
-            sh 'docker rm -f $(docker ps | grep $serviceName)'
-            echo 'docker will delete images'
-            sh 'docker rmi -f $(docker images | grep app | awk \'{print $3}\')'
+            steps {
+                echo 'docker will delete run container'
+                sh 'docker rm -f $(docker ps | grep $serviceName)'
+                echo 'docker will delete images'
+                sh 'docker rmi -f $(docker images | grep app | awk \'{print $3}\')'
+            }
         }
 
         stage('build image') {
