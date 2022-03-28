@@ -27,7 +27,7 @@ pipeline {
         stage('delete container and images') {
             steps {
                 script {
-                    def containerId = ${env.BUILD_NUMBER}
+                    def containerId = "${BUILD_NUMBER}"
                     echo containerId
 //                     def containerIds = sh 'docker ps -a | grep $serviceName | awk \'{print $1}\''
 //                     env.containerIds = containerIds
