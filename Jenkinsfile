@@ -28,6 +28,7 @@ pipeline {
             steps {
                 echo 'docker will delete run container'
                 sh 'docker rm -f \$(docker ps -a | grep $serviceName | awk \'{print $1}\') | true'
+
                 echo 'docker will delete images'
                 sh 'docker rmi -f \$(docker images | grep $serviceName | awk \'{print $3}\') | true'
             }
