@@ -27,8 +27,6 @@ pipeline {
         stage('build image') {
             steps {
                 echo 'docker remove old image'
-                sh '${BUILD_NUMBER - 1}'
-                sh '${BUILD_NUMBER} - 1'
                 sh 'printenv'
 //                 docker images | grep app | awk '{print $3}'
 //                 sh 'docker rmi -f $serviceName:${BUILD_NUMBER}'
