@@ -26,7 +26,7 @@ pipeline {
 
         stage('build image') {
             steps {
-                imageId = sh 'docker images | grep $serviceName | awk \'{print $3}\''
+                def imageId = sh 'docker images | grep $serviceName | awk \'{print $3}\''
                 echo 'docker remove old image -> ${imageId}'
                 sh 'docker rmi -f $serviceName:${BUILD_NUMBER}'
 
