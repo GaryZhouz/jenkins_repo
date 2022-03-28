@@ -50,11 +50,5 @@ pipeline {
                 sh 'docker run -d -p 8090:8090 app:${BUILD_NUMBER}'
             }
         }
-
-        post {
-           always {
-
-           }
-        }
     }
 }
