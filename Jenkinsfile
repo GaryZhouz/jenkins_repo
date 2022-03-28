@@ -1,8 +1,6 @@
 pipeline {
     agent any
 
-    def serviceName = 'app'
-
     environment {
         serviceName = 'app'
     }
