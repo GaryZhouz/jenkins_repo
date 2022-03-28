@@ -22,8 +22,8 @@ pipeline {
 
         stage('build image') {
             steps {
-//                 echo 'docker remove old image'
-//                 sh 'docker rmi -f app:${BUILD_NUMBER}'
+                echo 'docker remove old image'
+                sh 'docker rmi -f app:${BUILD_NUMBER-1}'
 
                 echo 'docker build image'
                 sh 'ls'
