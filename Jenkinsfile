@@ -24,15 +24,17 @@ pipeline {
             }
         }
 
+        stage('delete container and images') {
+            echo 'docker will delete run container'
+            sh 'docker rm -f $(docker ps | grep $serviceName)'
+            echo 'docker will delete images'
+            sh 'docker rmi -f $(docker images | grep app | awk \'{print $3}\')'
+        }
+
         stage('build image') {
             steps {
-                echo 'docker remove old image'
                 sh 'printenv'
-//                 docker images | grep app | awk '{print $3}'
-//                 sh 'docker rmi -f $serviceName:${BUILD_NUMBER}'
-                sh 'docker rmi -f $(docker images | grep app | awk \'{print $3}\')'
                 echo 'docker build image'
-                sh 'ls'
                 sh 'docker build --no-cache -t app:${BUILD_NUMBER} .'
             }
         }
