@@ -36,7 +36,7 @@ pipeline {
                 sh 'printenv'
                 echo 'docker build image'
                 sh 'docker build --no-cache -t app:${BUILD_NUMBER} .'
-                sh 'docker save app:${BUILD_NUMBER} | sudo k3s ctr images import -'
+                sh 'docker save app:${BUILD_NUMBER} | k3s ctr images import -'
             }
         }
 
@@ -44,6 +44,7 @@ pipeline {
             steps {
                 sh "ls"
                 sh "sed -i 's#<imagename>#app:${BUILD_NUMBER}#g;' ./k8s.yml"
+                sh 'cat k8s.yml'
             }
         }
     }
