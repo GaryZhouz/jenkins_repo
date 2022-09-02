@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: jenkins-project-container
-          image: "app:14"
+          image: <imagename>
           resources:
             limits:
               cpu: "1"

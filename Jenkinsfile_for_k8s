@@ -31,11 +31,19 @@ pipeline {
             }
         }
 
-        stage('build image') {
+        stage('build image&import local image to k3s') {
             steps {
                 sh 'printenv'
                 echo 'docker build image'
                 sh 'docker build --no-cache -t app:${BUILD_NUMBER} .'
+                sh 'docker save app:${BUILD_NUMBER} | sudo k3s ctr images import -'
+            }
+        }
+
+        stage('deploy image to k8s') {
+            steps {
+                sh "ls"
+                sh "sed -i 's#<imagename>#app:${BUILD_NUMBER}#g;' ./k8s.yml"
             }
         }
     }
