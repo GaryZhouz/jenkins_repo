@@ -44,7 +44,7 @@ pipeline {
         stage('deploy image to k8s') {
             steps {
                 sh "ls"
-                sh "sed -i 's#<imagename>#192.168.56.110:5000/app:${BUILD_NUMBER}#g;' ./k8s.yml"
+                sh "sed -i 's#<imagename>#http://192.168.56.110:5000/app:${BUILD_NUMBER}#g;' ./k8s.yml"
                 sh 'cat k8s.yml'
                 sh 'kubectl apply -f ./k8s.yml'
             }
