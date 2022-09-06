@@ -37,14 +37,14 @@ pipeline {
                 echo 'docker build image'
                 sh 'docker build --no-cache -t app:${BUILD_NUMBER} .'
                 sh 'docker tag app:${BUILD_NUMBER} 192.168.56.110:5000/app:${BUILD_NUMBER}'
-                sh 'docker push abc.com/app:${BUILD_NUMBER}'
+                sh 'docker push 192.168.56.110:5000/app:${BUILD_NUMBER}'
             }
         }
 
         stage('deploy image to k8s') {
             steps {
                 sh "ls"
-                sh "sed -i 's#<imagename>#192.168.56.110:5000/app:${BUILD_NUMBER}#g;' ./k8s.yml"
+                sh "sed -i 's#<imagename>#abc.com/app:${BUILD_NUMBER}#g;' ./k8s.yml"
                 sh 'cat k8s.yml'
                 sh 'kubectl apply -f ./k8s.yml'
             }
