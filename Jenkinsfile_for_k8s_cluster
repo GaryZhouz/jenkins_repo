@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    environment {
+        serviceName = 'app'
+    }
+
+    tools {
+        maven 'my_mvn'
+    }
+
+    stages {
+
+        stage('package') {
+            steps {
+                sh 'ls'
+                echo 'delete target'
+                sh 'rm -rf target'
+                sh 'ls'
+
+                echo 'start package'
+                sh 'mvn -B -DskipTests clean package'
+                echo 'maven package jar success'
+            }
+        }
+
+        stage('delete container and images') {
+            steps {
+                echo 'docker will delete old images'
+                sh 'docker rmi -f \$(docker images | grep $serviceName | awk \'{print $3}\') | true'
+            }
+        }
+
+        stage('build image&import local image to k3s') {
+            steps {
+                sh 'printenv'
+                echo 'docker build image'
+                sh 'docker build --no-cache -t app:${BUILD_NUMBER} .'
+                sh 'docker tag app:${BUILD_NUMBER} 192.168.56.110:5000/app:${BUILD_NUMBER}'
+                sh 'docker push 192.168.56.110:5000/app:${BUILD_NUMBER}'
+            }
+        }
+
+        stage('deploy image to k8s') {
+            steps {
+                sh "ls"
+                sh "sed -i 's#<imagename>#192.168.56.110:5000/app:${BUILD_NUMBER}#g;' ./k8s.yml"
+                sh 'cat k8s.yml'
+                sh 'kubectl apply -f ./k8s.yml'
+            }
+        }
+    }
+}
